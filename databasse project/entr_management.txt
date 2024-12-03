@@ -1,0 +1,81 @@
+CREATE OR REPLACE PACKAGE entry_management_pkg AS
+    PROCEDURE insert_entry(
+        p_entry_id    IN NUMBER,
+        p_title       IN VARCHAR2,
+        p_content     IN CLOB,
+        p_user_id     IN NUMBER,
+        p_channel_id  IN NUMBER
+    );
+
+    PROCEDURE update_entry(
+        p_entry_id    IN NUMBER,
+        p_title       IN VARCHAR2,
+        p_content     IN CLOB
+    );
+
+    PROCEDURE delete_entry(
+        p_entry_id IN NUMBER
+    );
+END entry_management_pkg;
+/
+
+CREATE OR REPLACE PACKAGE BODY entry_management_pkg AS
+    -- Entry Ekleme (INSERT)
+    PROCEDURE insert_entry(
+        p_entry_id    IN NUMBER,
+        p_title       IN VARCHAR2,
+        p_content     IN CLOB,
+        p_user_id     IN NUMBER,
+        p_channel_id  IN NUMBER
+    )
+    AS
+    BEGIN
+        INSERT INTO my_schema.ENTRIES (
+            ENTRY_ID, TITLE, CONTENT, USER_ID, CHANNEL_ID, CREATED_AT, UPDATED_AT
+        )
+        VALUES (
+            p_entry_id, p_title, p_content, p_user_id, p_channel_id, SYSTIMESTAMP, SYSTIMESTAMP
+        );
+
+        DBMS_OUTPUT.PUT_LINE('Entry başarıyla eklendi: ' || p_title);
+    END insert_entry;
+
+    -- Entry Güncelleme (UPDATE)
+    PROCEDURE update_entry(
+        p_entry_id    IN NUMBER,
+        p_title       IN VARCHAR2,
+        p_content     IN CLOB
+    )
+    AS
+    BEGIN
+        UPDATE my_schema.ENTRIES
+        SET 
+            TITLE = p_title,
+            CONTENT = p_content,
+            UPDATED_AT = SYSTIMESTAMP
+        WHERE ENTRY_ID = p_entry_id;
+
+        IF SQL%ROWCOUNT > 0 THEN
+            DBMS_OUTPUT.PUT_LINE('Entry başarıyla güncellendi: ' || p_title);
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Entry bulunamadı: ' || p_entry_id);
+        END IF;
+    END update_entry;
+
+    -- Entry Silme (DELETE)
+    PROCEDURE delete_entry(
+        p_entry_id IN NUMBER
+    )
+    AS
+    BEGIN
+        DELETE FROM my_schema.ENTRIES
+        WHERE ENTRY_ID = p_entry_id;
+
+        IF SQL%ROWCOUNT > 0 THEN
+            DBMS_OUTPUT.PUT_LINE('Entry başarıyla silindi: ' || p_entry_id);
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Entry bulunamadı: ' || p_entry_id);
+        END IF;
+    END delete_entry;
+END entry_management_pkg;
+/
