@@ -1,0 +1,186 @@
+CREATE OR REPLACE PACKAGE update_pkg AS
+    PROCEDURE update_users(
+        p_user_id IN NUMBER,
+        p_username IN VARCHAR2,
+        p_email IN VARCHAR2,
+        p_password_hash IN VARCHAR2,
+        p_profile_picture IN VARCHAR2,
+        p_is_admin IN NUMBER
+    );
+
+    PROCEDURE update_channels(
+        p_channel_id IN NUMBER,
+        p_channel_name IN VARCHAR2,
+        p_description IN CLOB
+    );
+
+    PROCEDURE update_entries(
+        p_entry_id IN NUMBER,
+        p_title IN VARCHAR2,
+        p_content IN CLOB
+    );
+    
+    PROCEDURE update_likes(
+    p_like_id IN NUMBER,
+    p_entry_id IN NUMBER,
+    p_comment_id IN NUMBER,
+    p_user_id IN NUMBER
+    );
+
+
+    PROCEDURE update_messages(
+        p_message_id IN NUMBER,
+        p_content IN CLOB,
+        p_is_read IN NUMBER
+    );
+
+    PROCEDURE update_comments(
+        p_comment_id IN NUMBER,
+        p_content IN CLOB
+    );
+
+    PROCEDURE update_reports(
+        p_report_id IN NUMBER,
+        p_status IN VARCHAR2
+    );
+
+    PROCEDURE update_saved_entries(
+        p_saved_id IN NUMBER,
+        p_entry_id IN NUMBER
+    );
+END update_pkg;
+/
+
+CREATE OR REPLACE PACKAGE BODY update_pkg AS
+
+    -- USERS Tablosu
+    PROCEDURE update_users(
+        p_user_id IN NUMBER,
+        p_username IN VARCHAR2,
+        p_email IN VARCHAR2,
+        p_password_hash IN VARCHAR2,
+        p_profile_picture IN VARCHAR2,
+        p_is_admin IN NUMBER
+    ) IS
+    BEGIN
+        UPDATE C##PROJECT_USER.USERS
+        SET USERNAME = p_username,
+            EMAIL = p_email,
+            PASSWORD_HASH = p_password_hash,
+            PROFILE_PICTURE = p_profile_picture,
+            IS_ADMIN = p_is_admin
+        WHERE USER_ID = p_user_id;
+
+        DBMS_OUTPUT.PUT_LINE('User updated successfully: ' || p_user_id);
+    END update_users;
+
+    -- CHANNELS Tablosu
+    PROCEDURE update_channels(
+        p_channel_id IN NUMBER,
+        p_channel_name IN VARCHAR2,
+        p_description IN CLOB
+    ) IS
+    BEGIN
+        UPDATE C##PROJECT_USER.CHANNELS
+        SET CHANNEL_NAME = p_channel_name,
+            DESCRIPTION = p_description
+        WHERE CHANNEL_ID = p_channel_id;
+
+        DBMS_OUTPUT.PUT_LINE('Channel updated successfully: ' || p_channel_id);
+    END update_channels;
+
+    -- ENTRIES Tablosu
+    PROCEDURE update_entries(
+        p_entry_id IN NUMBER,
+        p_title IN VARCHAR2,
+        p_content IN CLOB
+    ) IS
+    BEGIN
+        UPDATE C##PROJECT_USER.ENTRIES
+        SET TITLE = p_title,
+            CONTENT = p_content,
+            UPDATED_AT = SYSTIMESTAMP
+        WHERE ENTRY_ID = p_entry_id;
+
+        DBMS_OUTPUT.PUT_LINE('Entry updated successfully: ' || p_entry_id);
+    END update_entries;
+    
+    -- likes table
+    PROCEDURE update_likes(
+        p_like_id IN NUMBER,
+        p_entry_id IN NUMBER,
+        p_comment_id IN NUMBER,
+        p_user_id IN NUMBER
+    ) IS
+    BEGIN
+        UPDATE C##PROJECT_USER.LIKES
+        SET ENTRY_ID = p_entry_id,
+            COMMENT_ID = p_comment_id,
+            USER_ID = p_user_id,
+            CREATED_AT = SYSTIMESTAMP -- Tarihi güncelliyoruz
+        WHERE LIKE_ID = p_like_id;
+
+            IF SQL%ROWCOUNT > 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Like updated successfully: ' || p_like_id);
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Like not found: ' || p_like_id);
+    END IF;
+    END update_likes;
+
+
+    -- MESSAGES Tablosu
+    PROCEDURE update_messages(
+        p_message_id IN NUMBER,
+        p_content IN CLOB,
+        p_is_read IN NUMBER
+    ) IS
+    BEGIN
+        UPDATE C##PROJECT_USER.MESSAGES
+        SET CONTENT = p_content,
+            IS_READ = p_is_read
+        WHERE MESSAGE_ID = p_message_id;
+
+        DBMS_OUTPUT.PUT_LINE('Message updated successfully: ' || p_message_id);
+    END update_messages;
+
+    -- COMMENTS Tablosu
+    PROCEDURE update_comments(
+        p_comment_id IN NUMBER,
+        p_content IN CLOB
+    ) IS
+    BEGIN
+        UPDATE C##PROJECT_USER.COMMENTS
+        SET CONTENT = p_content
+        WHERE COMMENT_ID = p_comment_id;
+
+        DBMS_OUTPUT.PUT_LINE('Comment updated successfully: ' || p_comment_id);
+    END update_comments;
+
+    -- REPORTS Tablosu
+    PROCEDURE update_reports(
+        p_report_id IN NUMBER,
+        p_status IN VARCHAR2
+    ) IS
+    BEGIN
+        UPDATE C##PROJECT_USER.REPORTS
+        SET STATUS = p_status
+        WHERE REPORT_ID = p_report_id;
+
+        DBMS_OUTPUT.PUT_LINE('Report updated successfully: ' || p_report_id);
+    END update_reports;
+
+    -- SAVED_ENTRIES Tablosu
+    PROCEDURE update_saved_entries(
+        p_saved_id IN NUMBER,
+        p_entry_id IN NUMBER
+    ) IS
+    BEGIN
+        UPDATE C##PROJECT_USER.SAVED_ENTRIES
+        SET ENTRY_ID = p_entry_id
+        WHERE SAVED_ID = p_saved_id;
+
+        DBMS_OUTPUT.PUT_LINE('Saved Entry updated successfully: ' || p_saved_id);
+    END update_saved_entries;
+
+END update_pkg;
+/
