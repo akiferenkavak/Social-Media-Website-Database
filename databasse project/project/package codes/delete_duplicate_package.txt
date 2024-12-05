@@ -1,0 +1,144 @@
+CREATE OR REPLACE PACKAGE delete_duplicates_pkg AS
+    PROCEDURE delete_duplicates_from_users;
+    PROCEDURE delete_duplicates_from_entries;
+    PROCEDURE delete_duplicates_from_channels;
+    PROCEDURE delete_duplicates_from_messages;
+    PROCEDURE delete_duplicates_from_comments;
+    PROCEDURE delete_duplicates_from_reports;
+    PROCEDURE delete_duplicates_from_saved_entries;
+    PROCEDURE delete_duplicates_from_likes;
+END delete_duplicates_pkg;
+/
+
+CREATE OR REPLACE PACKAGE BODY delete_duplicates_pkg AS
+
+    -- USERS Tablosundaki çift kayıtları silme
+    PROCEDURE delete_duplicates_from_users IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.USERS
+        WHERE user_id IN (
+            SELECT user_id
+            FROM (
+                SELECT user_id, ROW_NUMBER() OVER (PARTITION BY username, email ORDER BY user_id) AS row_num
+                FROM C##PROJECT_USER.USERS
+            )
+            WHERE row_num > 1
+        );
+
+        DBMS_OUTPUT.PUT_LINE('Duplicate users deleted successfully.');
+    END delete_duplicates_from_users;
+
+    -- ENTRIES Tablosundaki çift kayıtları silme
+    PROCEDURE delete_duplicates_from_entries IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.ENTRIES
+        WHERE entry_id IN (
+            SELECT entry_id
+            FROM (
+                SELECT entry_id, ROW_NUMBER() OVER (PARTITION BY title, content ORDER BY entry_id) AS row_num
+                FROM C##PROJECT_USER.ENTRIES
+            )
+            WHERE row_num > 1
+        );
+
+        DBMS_OUTPUT.PUT_LINE('Duplicate entries deleted successfully.');
+    END delete_duplicates_from_entries;
+
+    -- CHANNELS Tablosundaki çift kayıtları silme
+    PROCEDURE delete_duplicates_from_channels IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.CHANNELS
+        WHERE channel_id IN (
+            SELECT channel_id
+            FROM (
+                SELECT channel_id, ROW_NUMBER() OVER (PARTITION BY channel_name ORDER BY channel_id) AS row_num
+                FROM C##PROJECT_USER.CHANNELS
+            )
+            WHERE row_num > 1
+        );
+
+        DBMS_OUTPUT.PUT_LINE('Duplicate channels deleted successfully.');
+    END delete_duplicates_from_channels;
+
+    -- MESSAGES Tablosundaki çift kayıtları silme
+    PROCEDURE delete_duplicates_from_messages IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.MESSAGES
+        WHERE message_id IN (
+            SELECT message_id
+            FROM (
+                SELECT message_id, ROW_NUMBER() OVER (PARTITION BY sender_id, receiver_id, content ORDER BY message_id) AS row_num
+                FROM C##PROJECT_USER.MESSAGES
+            )
+            WHERE row_num > 1
+        );
+
+        DBMS_OUTPUT.PUT_LINE('Duplicate messages deleted successfully.');
+    END delete_duplicates_from_messages;
+
+    -- COMMENTS Tablosundaki çift kayıtları silme
+    PROCEDURE delete_duplicates_from_comments IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.COMMENTS
+        WHERE comment_id IN (
+            SELECT comment_id
+            FROM (
+                SELECT comment_id, ROW_NUMBER() OVER (PARTITION BY entry_id, user_id, content ORDER BY comment_id) AS row_num
+                FROM C##PROJECT_USER.COMMENTS
+            )
+            WHERE row_num > 1
+        );
+
+        DBMS_OUTPUT.PUT_LINE('Duplicate comments deleted successfully.');
+    END delete_duplicates_from_comments;
+
+    -- REPORTS Tablosundaki çift kayıtları silme
+    PROCEDURE delete_duplicates_from_reports IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.REPORTS
+        WHERE report_id IN (
+            SELECT report_id
+            FROM (
+                SELECT report_id, ROW_NUMBER() OVER (PARTITION BY user_id, entry_id, comment_id ORDER BY report_id) AS row_num
+                FROM C##PROJECT_USER.REPORTS
+            )
+            WHERE row_num > 1
+        );
+
+        DBMS_OUTPUT.PUT_LINE('Duplicate reports deleted successfully.');
+    END delete_duplicates_from_reports;
+
+    -- SAVED_ENTRIES Tablosundaki çift kayıtları silme
+    PROCEDURE delete_duplicates_from_saved_entries IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.SAVED_ENTRIES
+        WHERE saved_id IN (
+            SELECT saved_id
+            FROM (
+                SELECT saved_id, ROW_NUMBER() OVER (PARTITION BY user_id, entry_id ORDER BY saved_id) AS row_num
+                FROM C##PROJECT_USER.SAVED_ENTRIES
+            )
+            WHERE row_num > 1
+        );
+
+        DBMS_OUTPUT.PUT_LINE('Duplicate saved entries deleted successfully.');
+    END delete_duplicates_from_saved_entries;
+
+    -- LIKES Tablosundaki çift kayıtları silme
+    PROCEDURE delete_duplicates_from_likes IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.LIKES
+        WHERE like_id IN (
+            SELECT like_id
+            FROM (
+                SELECT like_id, ROW_NUMBER() OVER (PARTITION BY entry_id, comment_id, user_id ORDER BY like_id) AS row_num
+                FROM C##PROJECT_USER.LIKES
+            )
+            WHERE row_num > 1
+        );
+
+        DBMS_OUTPUT.PUT_LINE('Duplicate likes deleted successfully.');
+    END delete_duplicates_from_likes;
+
+END delete_duplicates_pkg;
+/
