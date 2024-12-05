@@ -1,0 +1,84 @@
+CREATE OR REPLACE PACKAGE delete_pkg AS
+    PROCEDURE delete_from_users(p_user_id IN NUMBER);
+    PROCEDURE delete_from_channels(p_channel_id IN NUMBER);
+    PROCEDURE delete_from_entries(p_entry_id IN NUMBER);
+    PROCEDURE delete_from_messages(p_message_id IN NUMBER);
+    PROCEDURE delete_from_comments(p_comment_id IN NUMBER);
+    PROCEDURE delete_from_reports(p_report_id IN NUMBER);
+    PROCEDURE delete_from_saved_entries(p_saved_id IN NUMBER);
+    PROCEDURE delete_from_likes(p_like_id IN NUMBER);
+
+END delete_pkg;
+/
+
+CREATE OR REPLACE PACKAGE BODY delete_pkg AS
+
+    -- USERS Tablosu
+    PROCEDURE delete_from_users(p_user_id IN NUMBER) IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.USERS WHERE USER_ID = p_user_id;
+        DBMS_OUTPUT.PUT_LINE('User deleted successfully: ' || p_user_id);
+    END delete_from_users;
+
+    -- CHANNELS Tablosu
+    PROCEDURE delete_from_channels(p_channel_id IN NUMBER) IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.CHANNELS WHERE CHANNEL_ID = p_channel_id;
+        DBMS_OUTPUT.PUT_LINE('Channel deleted successfully: ' || p_channel_id);
+    END delete_from_channels;
+
+    -- ENTRIES Tablosu
+    PROCEDURE delete_from_entries(p_entry_id IN NUMBER) IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.ENTRIES WHERE ENTRY_ID = p_entry_id;
+        DBMS_OUTPUT.PUT_LINE('Entry deleted successfully: ' || p_entry_id);
+    END delete_from_entries;
+    
+    
+    --LIKES TABLE
+    PROCEDURE delete_from_likes(
+    p_like_id IN NUMBER
+    ) IS
+    BEGIN
+    DELETE FROM C##PROJECT_USER.LIKES
+    WHERE LIKE_ID = p_like_id;
+
+    IF SQL%ROWCOUNT > 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Like deleted successfully: ' || p_like_id);
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Like not found: ' || p_like_id);
+    END IF;
+    END delete_from_likes;
+
+    
+    -- MESSAGES Tablosu
+    PROCEDURE delete_from_messages(p_message_id IN NUMBER) IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.MESSAGES WHERE MESSAGE_ID = p_message_id;
+        DBMS_OUTPUT.PUT_LINE('Message deleted successfully: ' || p_message_id);
+    END delete_from_messages;
+
+    -- COMMENTS Tablosu
+    PROCEDURE delete_from_comments(p_comment_id IN NUMBER) IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.COMMENTS WHERE COMMENT_ID = p_comment_id;
+        DBMS_OUTPUT.PUT_LINE('Comment deleted successfully: ' || p_comment_id);
+    END delete_from_comments;
+
+    -- REPORTS Tablosu
+    PROCEDURE delete_from_reports(p_report_id IN NUMBER) IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.REPORTS WHERE REPORT_ID = p_report_id;
+        DBMS_OUTPUT.PUT_LINE('Report deleted successfully: ' || p_report_id);
+    END delete_from_reports;
+
+    -- SAVED_ENTRIES Tablosu
+    PROCEDURE delete_from_saved_entries(p_saved_id IN NUMBER) IS
+    BEGIN
+        DELETE FROM C##PROJECT_USER.SAVED_ENTRIES WHERE SAVED_ID = p_saved_id;
+        DBMS_OUTPUT.PUT_LINE('Saved Entry deleted successfully: ' || p_saved_id);
+    END delete_from_saved_entries;
+
+END delete_pkg;
+/
+
