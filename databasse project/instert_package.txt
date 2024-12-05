@@ -1,0 +1,246 @@
+CREATE OR REPLACE PACKAGE insert_pkg AS
+    -- USERS Tablosu için prosedür
+    PROCEDURE insert_into_users(
+        p_user_id IN NUMBER,
+        p_username IN VARCHAR2,
+        p_email IN VARCHAR2,
+        p_password_hash IN VARCHAR2,
+        p_profile_picture IN VARCHAR2,
+        p_is_admin IN NUMBER
+    );
+
+    -- CHANNELS Tablosu için prosedür
+    PROCEDURE insert_into_channels(
+        p_channel_id IN NUMBER,
+        p_channel_name IN VARCHAR2,
+        p_description IN CLOB
+    );
+
+    -- ENTRIES Tablosu için prosedür
+    PROCEDURE insert_into_entries(
+        p_entry_id IN NUMBER,
+        p_title IN VARCHAR2,
+        p_content IN CLOB,
+        p_user_id IN NUMBER,
+        p_channel_id IN NUMBER
+    );
+
+    -- MESSAGES Tablosu için prosedür
+    PROCEDURE insert_into_messages(
+        p_message_id IN NUMBER,
+        p_sender_id IN NUMBER,
+        p_receiver_id IN NUMBER,
+        p_content IN CLOB,
+        p_is_read IN NUMBER
+    );
+
+    -- COMMENTS Tablosu için prosedür
+    PROCEDURE insert_into_comments(
+        p_comment_id IN NUMBER,
+        p_entry_id IN NUMBER,
+        p_user_id IN NUMBER,
+        p_content IN CLOB
+    );
+
+    -- LIKES Tablosu için prosedür
+    PROCEDURE insert_into_likes(
+        p_like_id IN NUMBER,
+        p_entry_id IN NUMBER,
+        p_comment_id IN NUMBER,
+        p_user_id IN NUMBER
+    );
+
+    -- REPORTS Tablosu için prosedür
+    PROCEDURE insert_into_reports(
+        p_report_id IN NUMBER,
+        p_user_id IN NUMBER,
+        p_entry_id IN NUMBER,
+        p_comment_id IN NUMBER,
+        p_reason IN CLOB,
+        p_status IN VARCHAR2
+    );
+
+    -- SAVED_ENTRIES Tablosu için prosedür
+    PROCEDURE insert_into_saved_entries(
+        p_saved_id IN NUMBER,
+        p_user_id IN NUMBER,
+        p_entry_id IN NUMBER
+    );
+END insert_pkg;
+/
+
+
+
+CREATE OR REPLACE PACKAGE BODY insert_pkg AS
+
+    -- USERS Tablosu
+    PROCEDURE insert_into_users(
+        p_user_id IN NUMBER,
+        p_username IN VARCHAR2,
+        p_email IN VARCHAR2,
+        p_password_hash IN VARCHAR2,
+        p_profile_picture IN VARCHAR2,
+        p_is_admin IN NUMBER
+    ) IS
+    BEGIN
+        INSERT INTO C##PROJECT_USER.USERS (
+            USER_ID, USERNAME, EMAIL, PASSWORD_HASH, PROFILE_PICTURE, CREATED_AT, IS_ADMIN
+        ) VALUES (
+            p_user_id, 
+            p_username, 
+            p_email, 
+            p_password_hash, 
+            p_profile_picture, 
+            SYSTIMESTAMP, 
+            p_is_admin
+        );
+        DBMS_OUTPUT.PUT_LINE('User inserted successfully: ' || p_username);
+    END insert_into_users;
+
+    -- CHANNELS Tablosu
+    PROCEDURE insert_into_channels(
+        p_channel_id IN NUMBER,
+        p_channel_name IN VARCHAR2,
+        p_description IN CLOB
+    ) IS
+    BEGIN
+        INSERT INTO C##PROJECT_USER.CHANNELS (
+            CHANNEL_ID, CHANNEL_NAME, DESCRIPTION
+        ) VALUES (
+            p_channel_id, 
+            p_channel_name, 
+            p_description
+        );
+        DBMS_OUTPUT.PUT_LINE('Channel inserted successfully: ' || p_channel_name);
+    END insert_into_channels;
+
+    -- ENTRIES Tablosu
+    PROCEDURE insert_into_entries(
+        p_entry_id IN NUMBER,
+        p_title IN VARCHAR2,
+        p_content IN CLOB,
+        p_user_id IN NUMBER,
+        p_channel_id IN NUMBER
+    ) IS
+    BEGIN
+        INSERT INTO C##PROJECT_USER.ENTRIES (
+            ENTRY_ID, TITLE, CONTENT, USER_ID, CHANNEL_ID, CREATED_AT, UPDATED_AT
+        ) VALUES (
+            p_entry_id, 
+            p_title, 
+            p_content, 
+            p_user_id, 
+            p_channel_id, 
+            SYSTIMESTAMP, 
+            SYSTIMESTAMP
+        );
+        DBMS_OUTPUT.PUT_LINE('Entry inserted successfully: ' || p_title);
+    END insert_into_entries;
+
+    -- MESSAGES Tablosu
+    PROCEDURE insert_into_messages(
+        p_message_id IN NUMBER,
+        p_sender_id IN NUMBER,
+        p_receiver_id IN NUMBER,
+        p_content IN CLOB,
+        p_is_read IN NUMBER
+    ) IS
+    BEGIN
+        INSERT INTO C##PROJECT_USER.MESSAGES (
+            MESSAGE_ID, SENDER_ID, RECEIVER_ID, CONTENT, SENT_AT, IS_READ
+        ) VALUES (
+            p_message_id, 
+            p_sender_id, 
+            p_receiver_id, 
+            p_content, 
+            SYSTIMESTAMP, 
+            p_is_read
+        );
+        DBMS_OUTPUT.PUT_LINE('Message inserted successfully: ' || p_message_id);
+    END insert_into_messages;
+
+    -- COMMENTS Tablosu
+    PROCEDURE insert_into_comments(
+        p_comment_id IN NUMBER,
+        p_entry_id IN NUMBER,
+        p_user_id IN NUMBER,
+        p_content IN CLOB
+    ) IS
+    BEGIN
+        INSERT INTO C##PROJECT_USER.COMMENTS (
+            COMMENT_ID, ENTRY_ID, USER_ID, CONTENT, CREATED_AT
+        ) VALUES (
+            p_comment_id, 
+            p_entry_id, 
+            p_user_id, 
+            p_content, 
+            SYSTIMESTAMP
+        );
+        DBMS_OUTPUT.PUT_LINE('Comment inserted successfully: ' || p_comment_id);
+    END insert_into_comments;
+
+    -- LIKES Tablosu
+    PROCEDURE insert_into_likes(
+        p_like_id IN NUMBER,
+        p_entry_id IN NUMBER,
+        p_comment_id IN NUMBER,
+        p_user_id IN NUMBER
+    ) IS
+    BEGIN
+        INSERT INTO C##PROJECT_USER.LIKES (
+            LIKE_ID, ENTRY_ID, COMMENT_ID, USER_ID, CREATED_AT
+        ) VALUES (
+            p_like_id, 
+            p_entry_id, 
+            p_comment_id, 
+            p_user_id, 
+            SYSTIMESTAMP
+        );
+        DBMS_OUTPUT.PUT_LINE('Like inserted successfully: ' || p_like_id);
+    END insert_into_likes;
+
+    -- REPORTS Tablosu
+    PROCEDURE insert_into_reports(
+        p_report_id IN NUMBER,
+        p_user_id IN NUMBER,
+        p_entry_id IN NUMBER,
+        p_comment_id IN NUMBER,
+        p_reason IN CLOB,
+        p_status IN VARCHAR2
+    ) IS
+    BEGIN
+        INSERT INTO C##PROJECT_USER.REPORTS (
+            REPORT_ID, USER_ID, ENTRY_ID, COMMENT_ID, REASON, CREATED_AT, STATUS
+        ) VALUES (
+            p_report_id, 
+            p_user_id, 
+            p_entry_id, 
+            p_comment_id, 
+            p_reason, 
+            SYSTIMESTAMP, 
+            p_status
+        );
+        DBMS_OUTPUT.PUT_LINE('Report inserted successfully: ' || p_report_id);
+    END insert_into_reports;
+
+    -- SAVED_ENTRIES Tablosu
+    PROCEDURE insert_into_saved_entries(
+        p_saved_id IN NUMBER,
+        p_user_id IN NUMBER,
+        p_entry_id IN NUMBER
+    ) IS
+    BEGIN
+        INSERT INTO C##PROJECT_USER.SAVED_ENTRIES (
+            SAVED_ID, USER_ID, ENTRY_ID, SAVED_AT
+        ) VALUES (
+            p_saved_id, 
+            p_user_id, 
+            p_entry_id, 
+            SYSTIMESTAMP
+        );
+        DBMS_OUTPUT.PUT_LINE('Saved Entry inserted successfully: ' || p_saved_id);
+    END insert_into_saved_entries;
+
+END insert_pkg;
+/
+
