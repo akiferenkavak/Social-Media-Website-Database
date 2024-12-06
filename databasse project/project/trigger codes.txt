@@ -1,0 +1,167 @@
+CREATE OR REPLACE TRIGGER users_after_insert_trigger
+AFTER INSERT ON C##PROJECT_USER.USERS
+FOR EACH ROW
+BEGIN
+    INSERT INTO C##PROJECT_USER.TRANSACTIONS (
+        ENTITY_NAME,
+        OPERATION_TYPE,
+        REFERENCE_ID,
+        OPERATION_DATE
+    ) VALUES (
+        'USERS', -- İşlem yapılan tablo
+        'INSERT', -- İşlem türü
+        :NEW.USER_ID, -- Eklenen kaydın USER_ID'si
+        SYSTIMESTAMP -- İşlem tarihi
+    );
+END;
+/
+
+
+
+CREATE OR REPLACE TRIGGER entries_after_insert_trigger
+AFTER INSERT ON C##PROJECT_USER.ENTRIES
+FOR EACH ROW
+BEGIN
+    INSERT INTO C##PROJECT_USER.TRANSACTIONS (
+        ENTITY_NAME,
+        OPERATION_TYPE,
+        REFERENCE_ID,
+        OPERATION_DATE
+    ) VALUES (
+        'ENTRIES', -- İşlem yapılan tablo
+        'INSERT', -- İşlem türü
+        :NEW.ENTRY_ID, -- Eklenen kaydın ENTRY_ID'si
+        SYSTIMESTAMP -- İşlem tarihi
+    );
+END;
+/
+
+
+
+
+CREATE OR REPLACE TRIGGER messages_after_insert_trigger
+AFTER INSERT ON C##PROJECT_USER.MESSAGES
+FOR EACH ROW
+BEGIN
+    INSERT INTO C##PROJECT_USER.TRANSACTIONS (
+        ENTITY_NAME,
+        OPERATION_TYPE,
+        REFERENCE_ID,
+        OPERATION_DATE
+    ) VALUES (
+        'MESSAGES', -- İşlem yapılan tablo
+        'INSERT', -- İşlem türü
+        :NEW.MESSAGE_ID, -- Eklenen kaydın MESSAGE_ID'si
+        SYSTIMESTAMP -- İşlem tarihi
+    );
+END;
+/
+
+
+
+
+CREATE OR REPLACE TRIGGER comments_after_insert_trigger
+AFTER INSERT ON C##PROJECT_USER.COMMENTS
+FOR EACH ROW
+BEGIN
+    INSERT INTO C##PROJECT_USER.TRANSACTIONS (
+        ENTITY_NAME,
+        OPERATION_TYPE,
+        REFERENCE_ID,
+        OPERATION_DATE
+    ) VALUES (
+        'COMMENTS', -- İşlem yapılan tablo
+        'INSERT', -- İşlem türü
+        :NEW.COMMENT_ID, -- Eklenen kaydın COMMENT_ID'si
+        SYSTIMESTAMP -- İşlem tarihi
+    );
+END;
+/
+
+
+
+
+CREATE OR REPLACE TRIGGER likes_after_insert_trigger
+AFTER INSERT ON C##PROJECT_USER.LIKES
+FOR EACH ROW
+BEGIN
+    INSERT INTO C##PROJECT_USER.TRANSACTIONS (
+        ENTITY_NAME,
+        OPERATION_TYPE,
+        REFERENCE_ID,
+        OPERATION_DATE
+    ) VALUES (
+        'LIKES', -- İşlem yapılan tablo
+        'INSERT', -- İşlem türü
+        :NEW.LIKE_ID, -- Eklenen kaydın LIKE_ID'si
+        SYSTIMESTAMP -- İşlem tarihi
+    );
+END;
+/
+
+
+
+CREATE OR REPLACE TRIGGER reports_after_insert_trigger
+AFTER INSERT ON C##PROJECT_USER.REPORTS
+FOR EACH ROW
+BEGIN
+    INSERT INTO C##PROJECT_USER.TRANSACTIONS (
+        ENTITY_NAME,
+        OPERATION_TYPE,
+        REFERENCE_ID,
+        OPERATION_DATE
+    ) VALUES (
+        'REPORTS', -- İşlem yapılan tablo
+        'INSERT', -- İşlem türü
+        :NEW.REPORT_ID, -- Eklenen kaydın REPORT_ID'si
+        SYSTIMESTAMP -- İşlem tarihi
+    );
+END;
+/
+
+
+
+CREATE OR REPLACE TRIGGER saved_entries_after_insert_trigger
+AFTER INSERT ON C##PROJECT_USER.SAVED_ENTRIES
+FOR EACH ROW
+BEGIN
+    INSERT INTO C##PROJECT_USER.TRANSACTIONS (
+        ENTITY_NAME,
+        OPERATION_TYPE,
+        REFERENCE_ID,
+        OPERATION_DATE
+    ) VALUES (
+        'SAVED_ENTRIES', -- İşlem yapılan tablo
+        'INSERT', -- İşlem türü
+        :NEW.SAVED_ID, -- Eklenen kaydın SAVED_ID'si
+        SYSTIMESTAMP -- İşlem tarihi
+    );
+END;
+/
+
+
+
+CREATE OR REPLACE TRIGGER channels_after_insert_trigger
+AFTER INSERT ON C##PROJECT_USER.CHANNELS
+FOR EACH ROW
+BEGIN
+    INSERT INTO C##PROJECT_USER.TRANSACTIONS (
+        ENTITY_NAME,
+        OPERATION_TYPE,
+        REFERENCE_ID,
+        OPERATION_DATE
+    ) VALUES (
+        'CHANNELS', -- İşlem yapılan tablo
+        'INSERT', -- İşlem türü
+        :NEW.CHANNEL_ID, -- Eklenen kaydın CHANNEL_ID'si
+        SYSTIMESTAMP -- İşlem tarihi
+    );
+END;
+/
+
+
+
+
+
+
+
