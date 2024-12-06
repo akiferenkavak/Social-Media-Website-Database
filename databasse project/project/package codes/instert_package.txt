@@ -1,5 +1,5 @@
 CREATE OR REPLACE PACKAGE insert_pkg AS
-    -- USERS Tablosu için prosedür
+    -- USERS
     PROCEDURE insert_into_users(
         p_user_id IN NUMBER,
         p_username IN VARCHAR2,
@@ -9,14 +9,14 @@ CREATE OR REPLACE PACKAGE insert_pkg AS
         p_is_admin IN NUMBER
     );
 
-    -- CHANNELS Tablosu için prosedür
+    -- CHANNELS
     PROCEDURE insert_into_channels(
         p_channel_id IN NUMBER,
         p_channel_name IN VARCHAR2,
         p_description IN CLOB
     );
 
-    -- ENTRIES Tablosu için prosedür
+    -- ENTRIES 
     PROCEDURE insert_into_entries(
         p_entry_id IN NUMBER,
         p_title IN VARCHAR2,
@@ -25,7 +25,7 @@ CREATE OR REPLACE PACKAGE insert_pkg AS
         p_channel_id IN NUMBER
     );
 
-    -- MESSAGES Tablosu için prosedür
+    -- MESSAGES 
     PROCEDURE insert_into_messages(
         p_message_id IN NUMBER,
         p_sender_id IN NUMBER,
@@ -34,7 +34,7 @@ CREATE OR REPLACE PACKAGE insert_pkg AS
         p_is_read IN NUMBER
     );
 
-    -- COMMENTS Tablosu için prosedür
+    -- COMMENTS 
     PROCEDURE insert_into_comments(
         p_comment_id IN NUMBER,
         p_entry_id IN NUMBER,
@@ -42,7 +42,7 @@ CREATE OR REPLACE PACKAGE insert_pkg AS
         p_content IN CLOB
     );
 
-    -- LIKES Tablosu için prosedür
+    -- LIKES 
     PROCEDURE insert_into_likes(
         p_like_id IN NUMBER,
         p_entry_id IN NUMBER,
@@ -50,7 +50,7 @@ CREATE OR REPLACE PACKAGE insert_pkg AS
         p_user_id IN NUMBER
     );
 
-    -- REPORTS Tablosu için prosedür
+    -- REPORTS 
     PROCEDURE insert_into_reports(
         p_report_id IN NUMBER,
         p_user_id IN NUMBER,
@@ -60,7 +60,7 @@ CREATE OR REPLACE PACKAGE insert_pkg AS
         p_status IN VARCHAR2
     );
 
-    -- SAVED_ENTRIES Tablosu için prosedür
+    -- SAVED_ENTRIES 
     PROCEDURE insert_into_saved_entries(
         p_saved_id IN NUMBER,
         p_user_id IN NUMBER,
@@ -73,7 +73,7 @@ END insert_pkg;
 
 CREATE OR REPLACE PACKAGE BODY insert_pkg AS
 
-    -- USERS Tablosu
+    -- USERS 
     PROCEDURE insert_into_users(
         p_user_id IN NUMBER,
         p_username IN VARCHAR2,
@@ -97,7 +97,7 @@ CREATE OR REPLACE PACKAGE BODY insert_pkg AS
         DBMS_OUTPUT.PUT_LINE('User inserted successfully: ' || p_username);
     END insert_into_users;
 
-    -- CHANNELS Tablosu
+    -- CHANNELS 
     PROCEDURE insert_into_channels(
         p_channel_id IN NUMBER,
         p_channel_name IN VARCHAR2,
@@ -114,7 +114,7 @@ CREATE OR REPLACE PACKAGE BODY insert_pkg AS
         DBMS_OUTPUT.PUT_LINE('Channel inserted successfully: ' || p_channel_name);
     END insert_into_channels;
 
-    -- ENTRIES Tablosu
+    -- ENTRIES 
     PROCEDURE insert_into_entries(
         p_entry_id IN NUMBER,
         p_title IN VARCHAR2,
@@ -137,7 +137,7 @@ CREATE OR REPLACE PACKAGE BODY insert_pkg AS
         DBMS_OUTPUT.PUT_LINE('Entry inserted successfully: ' || p_title);
     END insert_into_entries;
 
-    -- MESSAGES Tablosu
+    -- MESSAGES 
     PROCEDURE insert_into_messages(
         p_message_id IN NUMBER,
         p_sender_id IN NUMBER,
@@ -159,7 +159,7 @@ CREATE OR REPLACE PACKAGE BODY insert_pkg AS
         DBMS_OUTPUT.PUT_LINE('Message inserted successfully: ' || p_message_id);
     END insert_into_messages;
 
-    -- COMMENTS Tablosu
+    -- COMMENTS 
     PROCEDURE insert_into_comments(
         p_comment_id IN NUMBER,
         p_entry_id IN NUMBER,
@@ -179,7 +179,7 @@ CREATE OR REPLACE PACKAGE BODY insert_pkg AS
         DBMS_OUTPUT.PUT_LINE('Comment inserted successfully: ' || p_comment_id);
     END insert_into_comments;
 
-    -- LIKES Tablosu
+    -- LIKES 
     PROCEDURE insert_into_likes(
         p_like_id IN NUMBER,
         p_entry_id IN NUMBER,
@@ -199,7 +199,7 @@ CREATE OR REPLACE PACKAGE BODY insert_pkg AS
         DBMS_OUTPUT.PUT_LINE('Like inserted successfully: ' || p_like_id);
     END insert_into_likes;
 
-    -- REPORTS Tablosu
+    -- REPORTS 
     PROCEDURE insert_into_reports(
         p_report_id IN NUMBER,
         p_user_id IN NUMBER,
@@ -223,7 +223,7 @@ CREATE OR REPLACE PACKAGE BODY insert_pkg AS
         DBMS_OUTPUT.PUT_LINE('Report inserted successfully: ' || p_report_id);
     END insert_into_reports;
 
-    -- SAVED_ENTRIES Tablosu
+    -- SAVED_ENTRIES 
     PROCEDURE insert_into_saved_entries(
         p_saved_id IN NUMBER,
         p_user_id IN NUMBER,
