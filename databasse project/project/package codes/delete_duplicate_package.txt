@@ -14,7 +14,7 @@ END delete_duplicates_pkg;
 
 CREATE OR REPLACE PACKAGE BODY delete_duplicates_pkg AS
 
-    -- USERS Tablosundaki Duplicate Silme
+    -- Delete USERS Duplicates 
     PROCEDURE delete_duplicates_from_users IS
     BEGIN
         DELETE FROM C##PROJECT_USER.USERS

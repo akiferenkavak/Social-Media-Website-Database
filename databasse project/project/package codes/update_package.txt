@@ -53,7 +53,7 @@ END update_pkg;
 
 CREATE OR REPLACE PACKAGE BODY update_pkg AS
 
-    -- USERS Tablosu
+    -- USERS Table
     PROCEDURE update_users(
         p_user_id IN NUMBER,
         p_username IN VARCHAR2,
@@ -74,7 +74,7 @@ CREATE OR REPLACE PACKAGE BODY update_pkg AS
         DBMS_OUTPUT.PUT_LINE('User updated successfully: ' || p_user_id);
     END update_users;
 
-    -- CHANNELS Tablosu
+    -- CHANNELS Table
     PROCEDURE update_channels(
         p_channel_id IN NUMBER,
         p_channel_name IN VARCHAR2,
@@ -89,7 +89,7 @@ CREATE OR REPLACE PACKAGE BODY update_pkg AS
         DBMS_OUTPUT.PUT_LINE('Channel updated successfully: ' || p_channel_id);
     END update_channels;
 
-    -- ENTRIES Tablosu
+    -- ENTRIES Table
     PROCEDURE update_entries(
         p_entry_id IN NUMBER,
         p_title IN VARCHAR2,
@@ -128,7 +128,7 @@ CREATE OR REPLACE PACKAGE BODY update_pkg AS
     END update_likes;
 
 
-    -- MESSAGES Tablosu
+    -- MESSAGES Table
     PROCEDURE update_messages(
         p_message_id IN NUMBER,
         p_content IN CLOB,
@@ -143,7 +143,7 @@ CREATE OR REPLACE PACKAGE BODY update_pkg AS
         DBMS_OUTPUT.PUT_LINE('Message updated successfully: ' || p_message_id);
     END update_messages;
 
-    -- COMMENTS Tablosu
+    -- COMMENTS Table
     PROCEDURE update_comments(
         p_comment_id IN NUMBER,
         p_content IN CLOB
@@ -156,7 +156,7 @@ CREATE OR REPLACE PACKAGE BODY update_pkg AS
         DBMS_OUTPUT.PUT_LINE('Comment updated successfully: ' || p_comment_id);
     END update_comments;
 
-    -- REPORTS Tablosu
+    -- REPORTS Table
     PROCEDURE update_reports(
         p_report_id IN NUMBER,
         p_status IN VARCHAR2
@@ -169,7 +169,7 @@ CREATE OR REPLACE PACKAGE BODY update_pkg AS
         DBMS_OUTPUT.PUT_LINE('Report updated successfully: ' || p_report_id);
     END update_reports;
 
-    -- SAVED_ENTRIES Tablosu
+    -- SAVED_ENTRIES Table
     PROCEDURE update_saved_entries(
         p_saved_id IN NUMBER,
         p_entry_id IN NUMBER

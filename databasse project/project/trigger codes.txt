@@ -70,10 +70,10 @@ BEGIN
         REFERENCE_ID,
         OPERATION_DATE
     ) VALUES (
-        'COMMENTS', -- İşlem yapılan tablo
-        'INSERT', -- İşlem türü
-        :NEW.COMMENT_ID, -- Eklenen kaydın COMMENT_ID'si
-        SYSTIMESTAMP -- İşlem tarihi
+        'COMMENTS', -- Operated table
+        'INSERT', -- operation type
+        :NEW.COMMENT_ID, -- COMMENT_ID of inserted comment
+        SYSTIMESTAMP -- Operation time
     );
 END;
 /
