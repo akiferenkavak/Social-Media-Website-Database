@@ -8,10 +8,10 @@ BEGIN
         REFERENCE_ID,
         OPERATION_DATE
     ) VALUES (
-        'USERS', -- İşlem yapılan tablo
-        'INSERT', -- İşlem türü
-        :NEW.USER_ID, -- Eklenen kaydın USER_ID'si
-        SYSTIMESTAMP -- İşlem tarihi
+        'USERS', -- Operated table
+        'INSERT', -- operation type
+        :NEW.USER_ID,
+        SYSTIMESTAMP -- operation date
     );
 END;
 /
@@ -28,10 +28,10 @@ BEGIN
         REFERENCE_ID,
         OPERATION_DATE
     ) VALUES (
-        'ENTRIES', -- İşlem yapılan tablo
-        'INSERT', -- İşlem türü
-        :NEW.ENTRY_ID, -- Eklenen kaydın ENTRY_ID'si
-        SYSTIMESTAMP -- İşlem tarihi
+        'ENTRIES', -- Operated table
+        'INSERT', -- operation type
+        :NEW.ENTRY_ID, 
+        SYSTIMESTAMP -- operation date
     );
 END;
 /
@@ -49,10 +49,10 @@ BEGIN
         REFERENCE_ID,
         OPERATION_DATE
     ) VALUES (
-        'MESSAGES', -- İşlem yapılan tablo
-        'INSERT', -- İşlem türü
-        :NEW.MESSAGE_ID, -- Eklenen kaydın MESSAGE_ID'si
-        SYSTIMESTAMP -- İşlem tarihi
+        'MESSAGES', -- Operated table
+        'INSERT', -- operation type
+        :NEW.MESSAGE_ID, 
+        SYSTIMESTAMP -- operation date
     );
 END;
 /
@@ -91,10 +91,10 @@ BEGIN
         REFERENCE_ID,
         OPERATION_DATE
     ) VALUES (
-        'LIKES', -- İşlem yapılan tablo
-        'INSERT', -- İşlem türü
-        :NEW.LIKE_ID, -- Eklenen kaydın LIKE_ID'si
-        SYSTIMESTAMP -- İşlem tarihi
+        'LIKES', -- Operated table
+        'INSERT', -- operation type
+        :NEW.LIKE_ID, 
+        SYSTIMESTAMP -- operation date
     );
 END;
 /
@@ -111,10 +111,10 @@ BEGIN
         REFERENCE_ID,
         OPERATION_DATE
     ) VALUES (
-        'REPORTS', -- İşlem yapılan tablo
-        'INSERT', -- İşlem türü
-        :NEW.REPORT_ID, -- Eklenen kaydın REPORT_ID'si
-        SYSTIMESTAMP -- İşlem tarihi
+        'REPORTS', -- Operated table
+        'INSERT', -- operation type
+        :NEW.REPORT_ID, 
+        SYSTIMESTAMP -- operation date
     );
 END;
 /
@@ -131,10 +131,10 @@ BEGIN
         REFERENCE_ID,
         OPERATION_DATE
     ) VALUES (
-        'SAVED_ENTRIES', -- İşlem yapılan tablo
-        'INSERT', -- İşlem türü
-        :NEW.SAVED_ID, -- Eklenen kaydın SAVED_ID'si
-        SYSTIMESTAMP -- İşlem tarihi
+        'SAVED_ENTRIES', -- Operated table
+        'INSERT', -- operation type
+        :NEW.SAVED_ID, 
+        SYSTIMESTAMP -- operation date
     );
 END;
 /
@@ -151,10 +151,10 @@ BEGIN
         REFERENCE_ID,
         OPERATION_DATE
     ) VALUES (
-        'CHANNELS', -- İşlem yapılan tablo
-        'INSERT', -- İşlem türü
-        :NEW.CHANNEL_ID, -- Eklenen kaydın CHANNEL_ID'si
-        SYSTIMESTAMP -- İşlem tarihi
+        'CHANNELS', -- Operated table
+        'INSERT', -- operation type
+        :NEW.CHANNEL_ID, 
+        SYSTIMESTAMP -- operation date
     );
 END;
 /

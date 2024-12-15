@@ -1,13 +1,13 @@
 CREATE OR REPLACE PACKAGE delete_duplicates_pkg AS
-    -- Prosedür Tanımları
-    PROCEDURE delete_duplicates_from_users;       -- USERS tablosundaki duplicate kayıtları siler
-    PROCEDURE delete_duplicates_from_entries;     -- ENTRIES tablosundaki duplicate kayıtları siler
-    PROCEDURE delete_duplicates_from_channels;    -- CHANNELS tablosundaki duplicate kayıtları siler
-    PROCEDURE delete_duplicates_from_messages;    -- MESSAGES tablosundaki duplicate kayıtları siler
-    PROCEDURE delete_duplicates_from_comments;    -- COMMENTS tablosundaki duplicate kayıtları siler
-    PROCEDURE delete_duplicates_from_reports;     -- REPORTS tablosundaki duplicate kayıtları siler
-    PROCEDURE delete_duplicates_from_saved_entries; -- SAVED_ENTRIES tablosundaki duplicate kayıtları siler
-    PROCEDURE delete_duplicates_from_likes;       -- LIKES tablosundaki duplicate kayıtları siler
+    -- Procedure Definitions
+    PROCEDURE delete_duplicates_from_users;        
+    PROCEDURE delete_duplicates_from_entries;      
+    PROCEDURE delete_duplicates_from_channels;     
+    PROCEDURE delete_duplicates_from_messages;    
+    PROCEDURE delete_duplicates_from_comments;    
+    PROCEDURE delete_duplicates_from_reports;     
+    PROCEDURE delete_duplicates_from_saved_entries; 
+    PROCEDURE delete_duplicates_from_likes;       
 END delete_duplicates_pkg;
 /
 
@@ -29,7 +29,6 @@ CREATE OR REPLACE PACKAGE BODY delete_duplicates_pkg AS
         DBMS_OUTPUT.PUT_LINE('Duplicate users deleted successfully.');
     END delete_duplicates_from_users;
 
-    -- ENTRIES Tablosundaki Duplicate Silme
     PROCEDURE delete_duplicates_from_entries IS
     BEGIN
         DELETE FROM C##PROJECT_USER.ENTRIES
@@ -44,7 +43,6 @@ CREATE OR REPLACE PACKAGE BODY delete_duplicates_pkg AS
         DBMS_OUTPUT.PUT_LINE('Duplicate entries deleted successfully.');
     END delete_duplicates_from_entries;
 
-    -- CHANNELS Tablosundaki Duplicate Silme
     PROCEDURE delete_duplicates_from_channels IS
     BEGIN
         DELETE FROM C##PROJECT_USER.CHANNELS
@@ -59,7 +57,6 @@ CREATE OR REPLACE PACKAGE BODY delete_duplicates_pkg AS
         DBMS_OUTPUT.PUT_LINE('Duplicate channels deleted successfully.');
     END delete_duplicates_from_channels;
 
-    -- MESSAGES Tablosundaki Duplicate Silme
     PROCEDURE delete_duplicates_from_messages IS
     BEGIN
         DELETE FROM C##PROJECT_USER.MESSAGES
@@ -74,7 +71,6 @@ CREATE OR REPLACE PACKAGE BODY delete_duplicates_pkg AS
         DBMS_OUTPUT.PUT_LINE('Duplicate messages deleted successfully.');
     END delete_duplicates_from_messages;
 
-    -- COMMENTS Tablosundaki Duplicate Silme
     PROCEDURE delete_duplicates_from_comments IS
     BEGIN
         DELETE FROM C##PROJECT_USER.COMMENTS
@@ -89,7 +85,6 @@ CREATE OR REPLACE PACKAGE BODY delete_duplicates_pkg AS
         DBMS_OUTPUT.PUT_LINE('Duplicate comments deleted successfully.');
     END delete_duplicates_from_comments;
 
-    -- REPORTS Tablosundaki Duplicate Silme
     PROCEDURE delete_duplicates_from_reports IS
     BEGIN
         DELETE FROM C##PROJECT_USER.REPORTS
@@ -104,7 +99,6 @@ CREATE OR REPLACE PACKAGE BODY delete_duplicates_pkg AS
         DBMS_OUTPUT.PUT_LINE('Duplicate reports deleted successfully.');
     END delete_duplicates_from_reports;
 
-    -- SAVED_ENTRIES Tablosundaki Duplicate Silme
     PROCEDURE delete_duplicates_from_saved_entries IS
     BEGIN
         DELETE FROM C##PROJECT_USER.SAVED_ENTRIES
@@ -119,7 +113,6 @@ CREATE OR REPLACE PACKAGE BODY delete_duplicates_pkg AS
         DBMS_OUTPUT.PUT_LINE('Duplicate saved entries deleted successfully.');
     END delete_duplicates_from_saved_entries;
 
-    -- LIKES Tablosundaki Duplicate Silme
     PROCEDURE delete_duplicates_from_likes IS
     BEGIN
         DELETE FROM C##PROJECT_USER.LIKES
