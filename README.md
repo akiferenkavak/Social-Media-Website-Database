@@ -1,0 +1,3 @@
+We created a database for an Ekşisözlük-like website. First we determined the datas that we will need in our site in particular captions. These are: user datas, entry datas, comment datas, message datas, saved entries datas, channel datas, like datas and report datas. We determined the attributes of each of them and determined the relations between them. 
+We used toad for oracle as database manager and used oracle for creating the database.
+Our database codes includes creating the necessary tables with their attributes, creating the relations between that tables, inputting, altering and deleting rows to/from these tables, triggering a transaction table for holding the summary of entried datas.
